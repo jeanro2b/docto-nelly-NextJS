@@ -1,0 +1,418 @@
+header {
+  position: fixed;
+  width: 100%;
+}
+
+.navbar-desktop {
+  display: none;
+  width: 100%;
+  background: transparent;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+  padding: 0 8%;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.navbar-desktop.scroll {
+  color: black;
+  background-color: white;
+  height: 60px;
+  box-shadow: 10px 2px 8px 1px rgb(194, 181, 181);
+}
+
+.navbar-desktop .logo {
+  cursor: pointer;
+}
+
+.navbar-desktop ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  font-size: 0.85em;
+}
+
+.navbar-desktop ul li {
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.navbar-desktop ul li:hover {
+  color: rgb(60, 150, 195);
+}
+
+.navbar-mobile {
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-size: 1.3em;
+  border-bottom: 1px solid rgb(142, 170, 184);
+}
+
+.menu-mobile.hidden {
+  transform: translateX(-100%);
+}
+
+.menu-mobile {
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.menu-mobile ul {
+  padding: 5px 20px;
+  list-style: none;
+}
+
+.menu-mobile ul li {
+  border-bottom: 1px solid rgb(142, 170, 184);
+  margin: 10px 20px;
+  padding: 15px 0;
+}
+
+/* FIN DU HEADER  */
+
+.background-image {
+  background-image: url("../public/images/background.jpeg");
+  height: 95vh;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-texte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  width: 250px;
+  text-align: center;
+}
+
+.title-texte h1 {
+  padding: 15px 0;
+}
+
+.title-texte p {
+  padding: 20px 0;
+}
+
+.title-texte button {
+  width: 80%;
+  padding: 16px 23px;
+  margin-bottom: 12px;
+  border: none;
+  background-color: rgb(42, 185, 234);
+  color: white;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.title-texte button:hover {
+  background-color: rgb(72, 72, 72);
+}
+
+/* FIN IMAGE ET CALENDRIER */
+
+.presentation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  padding: 50px 50px;
+}
+
+.presentation-container img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+}
+
+.presentation-container h1 {
+  margin: 30px 0;
+  line-height: 1.4em;
+}
+
+.presentation-container p {
+  line-height: 1.8em;
+  color: grey;
+}
+
+/* FIN PRESENTATION */
+
+.form-container {
+  width: 100%;
+  padding: 90px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(50, 50, 50);
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.control {
+  width: 252px;
+  padding: 0 12px;
+}
+
+.control input {
+  width: 100%;
+  padding: 16px 23px;
+  border: none;
+  margin-bottom: 12px;
+}
+
+.control input:focus {
+  border: none;
+  outline: none;
+  background-color: rgb(226, 226, 226);
+}
+
+.control span {
+  color: rgb(164, 54, 62);
+  margin-top: 17px;
+  margin-bottom: 5px;
+  width: 100%;
+  display: block;
+  font-size: 0.805em;
+}
+
+.actions {
+  width: 232px;
+}
+
+.actions button {
+  width: 100%;
+  padding: 16px 23px;
+  margin-bottom: 12px;
+  border: none;
+  background-color: rgb(42, 185, 234);
+  color: white;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: rgb(72, 72, 72);
+}
+
+.error-form {
+  margin-top: 40px;
+  width: 60%;
+  border: 2px solid rgb(254, 185, 2);
+  padding: 6px 14px;
+  color: rgb(108, 108, 108);
+  font-size: 00.85em;
+}
+
+/* FIN DU FORMULAIRE  */
+
+.definitions-container {
+  display: flex;
+  flex-direction: column;
+  margin: 85px 45px;
+  justify-content: center;
+}
+
+.definition-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 15px 0;
+  justify-content: flex-start;
+}
+
+.definition-container h2 {
+  margin-top: 30px;
+  font-size: 1.2em;
+  font-weight: 900;
+}
+
+.definition-container p {
+  margin: 20px 0;
+  font-size: 0.85em;
+  font-weight: 100;
+  color: rgb(157, 157, 157);
+  line-height: 1.8em;
+  letter-spacing: 0.03em;
+}
+
+.image-container {
+  height: 219px;
+  width: 300px;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+/* FIN DES SECTIONS */
+
+.background-image-calendar {
+  background-image: url("../public/images/img-calendar.jpeg");
+  height: 80vh;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-texte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  text-align: center;
+}
+
+.calendar-texte > h1,
+.calendar-texte > p {
+  padding: 15px;
+}
+
+.calendar {
+  width: 250px;
+  height: 300px;
+  background-color: white;
+}
+
+/* FIN DU CALENDRIER */
+
+.footer-container {
+  background-color: rgb(38, 38, 38);
+  color: rgb(140, 140, 140);
+  padding: 40px 45px;
+}
+
+.footer-container h1 {
+  color: white;
+  font-size: 1.4em;
+  margin: 40px 0;
+}
+
+.footer-container ul li {
+  font-size: 0.85em;
+  list-style: none;
+  margin: 20px 0;
+}
+
+/* PAGE CONTACT -------------------- */
+
+.background-contact {
+  background-image: url("../public/images/contact-background.jpeg");
+  height: 400px;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-div {
+  display: flex;
+  padding: 40px 20px;
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-text h1 {
+  padding: 20px 0;
+  font-size: 1.5em;
+}
+
+.contact-text ul li {
+  list-style: none;
+  padding: 5px 0;
+  color: rgb(70, 70, 70);
+}
+
+.contact-icone {
+  padding: 10px 20px 10px 15px;
+  font-size: 2em;
+  color: rgb(42, 185, 234);
+  cursor: pointer;
+}
+
+.contact-icone:hover {
+  animation: bounce 0.7s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+
+  75% {
+    transform: translateY(-8px);
+  }
+}
+
+.contact-text button {
+  width: 80%;
+  padding: 16px 23px;
+  margin: 12px 0;
+  border: none;
+  background-color: rgb(42, 185, 234);
+  color: white;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-text button:hover {
+  background-color: rgb(72, 72, 72);
+}
+
+.google-map {
+  margin: auto;
+}
+
+/* PAGE PSYCHOLOGIE -------------------- */
+
+.background-psychologie {
+  background-image: url("../public/images/psychologie-background.jpeg");
+  height: 400px;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
