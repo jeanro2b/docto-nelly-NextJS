@@ -11,7 +11,10 @@ const Presentation = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
           qui laborum, enim aliquam nisi officiis ut officia rem cupiditate
           possimus magnam autem dolores? Corporis quaerat explicabo consectetur
-          fugit beatae dolorum!
+          fugit beatae dolorum! Lorem ipsum, dolor sit amet consectetur
+          adipisicing elit. Eius impedit nulla voluptates doloribus quos
+          nesciunt, alias autem sed temporibus perferendis saepe, vitae velit
+          corporis quibusdam odit reprehenderit, nisi ipsam tempore.
         </p>
       </div>
     </div>

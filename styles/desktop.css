@@ -9,14 +9,13 @@
 
   .presentation-container {
     flex-direction: row;
-
   }
 
   .presentation-container img {
-    width: 420px;
-    height: 420px;
-    margin-left: 10%;
-    margin-right: 30px;
+    width: 360px;
+    height: 360px;
+    margin-right: 90px;
+    margin-left: 50px;
   }
 
   .presentation-texte h1 {
@@ -24,15 +23,14 @@
   }
 
   .presentation-texte p {
-    margin-right: 200px;
+    margin-right: 100px;
     text-align: justify;
   }
 
   .background-image {
-      height: 110vh;
-      background-attachment: fixed;
+    height: 75vh;
+    background-attachment: fixed;
   }
-
 
   .form-container {
     height: auto;
@@ -74,10 +72,14 @@
   }
 
   .background-image-calendar {
-    height: 860px;
+    height: 750px;
   }
 
-  .calendar{
+  .background-image-calendar-open {
+    height: 857px;
+  }
+
+  .calendar {
     margin-top: 30px;
     width: 450px;
     height: 420px;
@@ -92,6 +94,7 @@
   .footer-container {
     display: flex;
     justify-content: center;
+    margin: auto;
   }
 
   .footer-section {
@@ -99,6 +102,11 @@
     border-right: 1px solid rgb(140, 140, 140);
     padding: 0 70px;
     margin: 0 70px;
+    flex: 1;
+  }
+
+  .footer-section-lr {
+    flex: 1;
   }
 
   .contact-section {
@@ -112,5 +120,44 @@
   .contact-div {
     margin: auto;
     width: 60%;
+  }
+
+  .control {
+    width: 252px;
+  }
+
+  .actions {
+    width: 220px;
+  }
+
+  .carousel-root {
+    height: 475px;
+  }
+
+  .google-map-desktop {
+    display: block;
+  }
+
+  .google-map-mobile {
+    display: none;
+  }
+
+  .react-calendar {
+    width: 480px !important;
+    height: 480px !important;
+  }
+
+  .react-calendar__tile {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .day-container-show {
+    width: 480px;
+  }
+
+  .overlay p {
+    margin-left: 60px;
+    margin-right: 60px;
   }
 }
