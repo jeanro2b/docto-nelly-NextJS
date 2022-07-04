@@ -70,9 +70,7 @@ const ContactSection = () => {
           src={"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2984.877303186882!2d5.398113314863838!3d43.30890782028002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9bf7b4f133565%3A0x931e8b13b60e0eb1!2s155%20Av.%20des%20Chartreux%2C%2013004%20Marseille!5e0!3m2!1sfr!2sfr!4v1656668456083!5m2!1sfr!2sfr"}
           width={"600"}
           height={"670"}
-          allowfullscreen={"yes"}
           loading={"lazy"}
-          referrerpolicy={"no-referrer-when-downgrade"}
         ></iframe>
       </div>
       <div className={"google-map-mobile"}>
@@ -80,9 +78,7 @@ const ContactSection = () => {
           src={"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2984.877303186882!2d5.398113314863838!3d43.30890782028002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9bf7b4f133565%3A0x931e8b13b60e0eb1!2s155%20Av.%20des%20Chartreux%2C%2013004%20Marseille!5e0!3m2!1sfr!2sfr!4v1656668456083!5m2!1sfr!2sfr"}
           width={"390"}
           height={"500"}
-          allowfullscreen={"yes"}
           loading={"lazy"}
-          referrerpolicy={"no-referrer-when-downgrade"}
         ></iframe>
       </div>
     </div>
