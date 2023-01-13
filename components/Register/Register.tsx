@@ -1,49 +1,76 @@
 import React from "react";
+import { useAuth } from '../../hooks/auth'
 
 const Register = () => {
   const nameInputRef = React.useRef<HTMLInputElement>();
   const middleNameInputRef = React.useRef<HTMLInputElement>();
   const emailInputRef = React.useRef<HTMLInputElement>();
   const phoneInputRef = React.useRef<HTMLInputElement>();
+  const passwordInputRef = React.useRef<HTMLInputElement>();
 
   const [nameIsValid, setNameIsValid] = React.useState(true);
   const [middleNameIsValid, setMiddleNameIsValid] = React.useState(true);
   const [mailIsValid, setMailIsValid] = React.useState(true);
+  const [passwordIsValid, setPasswordIsValid] = React.useState(true);
   const [phoneIsValid, setPhoneIsValid] = React.useState(true);
   const [formIsValid, setFormIsValid] = React.useState(true);
 
+  const [errors, setErrors] = React.useState([])
+  const [status, setStatus] = React.useState(null)
+
+  const { register } = useAuth({
+        middleware: 'guest',
+        redirectIfAuthenticated: '/dashboard',
+  })
+
   const formSubmissionHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    const enteredName = nameInputRef.current!.value;
-    const enteredMiddleName = middleNameInputRef.current!.value;
-    const enteredMail = emailInputRef.current!.value;
-    const enteredPhone = phoneInputRef.current!.value;
+    const name = nameInputRef.current!.value;
+    const middleName = middleNameInputRef.current!.value;
+    const mail = emailInputRef.current!.value;
+    const phone = phoneInputRef.current!.value;
+    const password = passwordInputRef.current!.value;
 
-    if (enteredName.trim() === "") {
+    if (name.trim() === "") {
       setNameIsValid(false);
     } else {
       setNameIsValid(true);
     }
-    if (enteredMiddleName.trim() === "") {
+    if (middleName.trim() === "") {
       setMiddleNameIsValid(false);
     } else {
       setMiddleNameIsValid(true);
     }
-    if (enteredMail.trim() === "" || !enteredMail.trim().includes("@")) {
+    if (mail.trim() === "" || !mail.trim().includes("@")) {
       setMailIsValid(false);
     } else {
       setMailIsValid(true);
     }
-    if (enteredPhone.trim() === "") {
+    if (password.trim() === "" || password.length < 8) {
+      setPasswordIsValid(false);
+    } else {
+      setPasswordIsValid(true);
+    }
+    if (phone.trim() === "") {
       setPhoneIsValid(false);
     } else {
       setPhoneIsValid(true);
     }
 
-    if (!enteredMail || !enteredName || !enteredMiddleName || !enteredPhone) {
+    if (!mail || !name || !middleName || !phone || !password) {
       setFormIsValid(false);
     } else {
       setFormIsValid(true);
+
+      register({
+        name,
+        middleName,
+        mail,
+        password,
+        password_confirmation: password,
+        phone,
+        setErrors,
+    })
     }
   };
 
@@ -79,6 +106,15 @@ const Register = () => {
         </div>
         <div className={"control"}>
           <input
+            type="password"
+            placeholder="Mot de passe"
+            id="password"
+            ref={passwordInputRef}
+          ></input>
+          {!passwordIsValid && <span>Un mot de passe valide de 8 caractères mini doit être renseigné</span>}
+        </div>
+        <div className={"control"}>
+          <input
             type="text"
             placeholder="Téléphone"
             id="phone"
@@ -87,7 +123,7 @@ const Register = () => {
           {!phoneIsValid && <span>Votre téléphone doit être renseigné</span>}
         </div>
         <div className={"actions"}>
-          <button>ENVOYER</button>
+          <button>INSCRIPTION RAPIDE</button>
         </div>
       </form>
       {!formIsValid && (

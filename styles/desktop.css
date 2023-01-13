@@ -123,11 +123,12 @@
   }
 
   .control {
-    width: 252px;
+    width: 235px;
   }
 
   .actions {
-    width: 220px;
+    width: 260px;
+    margin-right: 20px;
   }
 
   .carousel-root {

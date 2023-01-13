@@ -37,6 +37,14 @@ const CalendarSection = () => {
       setShowDay(true);
     }
     setDateSelected(value);
+    const date = value.getUTCFullYear() + '-' +
+    ('00' + (value.getUTCMonth()+1)).slice(-2) + '-' +
+    ('00' + value.getUTCDate()).slice(-2) + ' ' + 
+    ('00' + value.getUTCHours()).slice(-2) + ':' + 
+    ('00' + value.getUTCMinutes()).slice(-2) + ':' + 
+    ('00' + value.getUTCSeconds()).slice(-2);
+    
+    console.log(date);
   };
 
   if (showDay) {

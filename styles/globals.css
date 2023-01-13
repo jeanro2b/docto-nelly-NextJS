@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 @import "./styles.css";
 @import "./desktop.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 
 html,

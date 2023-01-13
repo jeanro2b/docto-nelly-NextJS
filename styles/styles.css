@@ -1,4 +1,4 @@
-header {
+.heeader {
   position: fixed;
   width: 100%;
   z-index: 10;
@@ -107,7 +107,7 @@ header {
 }
 
 .title-texte button {
-  width: 80%;
+  width: 100%;
   padding: 16px 23px;
   margin-bottom: 12px;
   border: none;

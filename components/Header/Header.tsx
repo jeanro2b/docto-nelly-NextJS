@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <>
-      <header>
+      <div className={"heeader"}>
         <div className={"navbar-mobile"}>
           <div
             className={"button-menu-mobile"}
@@ -87,7 +87,7 @@ const Header = () => {
             </li>
           </ul>
         </div>
-      </header>
+      </div>
     </>
   );
 };

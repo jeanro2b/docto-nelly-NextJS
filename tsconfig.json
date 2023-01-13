@@ -16,13 +16,14 @@
     "module": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "moduleResolution": "node"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "pages/login.js", "pages/forgot-password.js", "pages/register.js"  ],
   "exclude": [
     "node_modules"
   ]
