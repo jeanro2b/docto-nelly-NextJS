@@ -355,7 +355,7 @@
 }
 
 .react-calendar {
-  height: 700px !important;
+  height: min-content !important;
 }
 
 .react-calendar__navigation {
@@ -420,7 +420,7 @@
   padding: 10px;
   background-color: rgb(5, 105, 154);
   border-radius: 6px;
-  margin: 10px 0;
+  margin: 10px 5px;
   border: none;
   color: white;
   cursor: pointer;
@@ -615,4 +615,13 @@
   line-height: 1.8em;
   color: black;
   font-size: 1.3em;
+}
+
+.dashboard {
+  background-color: grey !important;
+}
+
+.supprimer {
+  transform: translate(30em, -4.5em);
+  position: absolute;
 }

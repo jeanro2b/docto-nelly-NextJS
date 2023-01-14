@@ -18,10 +18,7 @@ const Register = () => {
   const [errors, setErrors] = React.useState([])
   const [status, setStatus] = React.useState(null)
 
-  const { register } = useAuth({
-        middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
-  })
+  const { register } = useAuth();
 
   const formSubmissionHandler = (e: React.FormEvent) => {
     e.preventDefault();

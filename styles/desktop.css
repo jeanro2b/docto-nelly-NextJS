@@ -76,7 +76,7 @@
   }
 
   .background-image-calendar-open {
-    height: 857px;
+    height: 900px;
   }
 
   .calendar {
@@ -88,7 +88,7 @@
   .react-calendar {
     margin-top: 30px;
     min-width: 450px;
-    height: 400px;
+    height: min-content;
   }
 
   .footer-container {
@@ -145,7 +145,7 @@
 
   .react-calendar {
     width: 480px !important;
-    height: 480px !important;
+    height: min-content !important;
   }
 
   .react-calendar__tile {

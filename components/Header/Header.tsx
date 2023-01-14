@@ -4,8 +4,13 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../hooks/auth";
 
 const Header = () => {
+  const { user, logout } = useAuth();
+  const id = user?.id;
+  console.log(id);
+
   const [showMenu, setShowMenu] = React.useState(false);
   const [navbar, setNavbar] = React.useState(false);
 
@@ -66,6 +71,15 @@ const Header = () => {
             <li>
               <Link href="/contact">Contact</Link>
             </li>
+            {id && <li>
+              <Link href="/slot-success">Reservations</Link>
+            </li>}
+            {id && <li>
+              <button onClick={logout}>Déconnexion</button>
+            </li>}
+            {!id && <li>
+              <Link href="/login">Connexion</Link>
+            </li>}
           </ul>
         </div>
         <div className={nav}>
@@ -85,6 +99,15 @@ const Header = () => {
             <li>
               <Link href="/contact">CONTACT</Link>
             </li>
+            {id && <li>
+              <Link href="/slot-success">RESERVATIONS</Link>
+            </li>}
+            {id && <li>
+              <button onClick={logout}>DÉCONNEXION</button>
+            </li>}
+            {!id && <li>
+              <Link href="/login">CONNEXION</Link>
+            </li>}
           </ul>
         </div>
       </div>

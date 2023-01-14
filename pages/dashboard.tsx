@@ -1,5 +1,6 @@
 import AppLayout from '../components/Breeze/Layouts/AppLayout'
 import Head from 'next/head'
+import Header from '../components/Header/Header'
 
 const Dashboard = () => {
     return (
