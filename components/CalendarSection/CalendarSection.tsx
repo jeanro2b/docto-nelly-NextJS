@@ -1,7 +1,7 @@
 import React, { useDebugValue } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { format } from "date-fns";
+import { format, isAfter, isBefore, isWeekend } from "date-fns";
 import axios from "../../lib/axios";
 import { useRouter } from "next/router";
 
@@ -12,6 +12,7 @@ const CalendarSection = () => {
   const [showDay, setShowDay] = React.useState(false);
   const [dateSelected, setDateSelected] = React.useState(new Date());
   const [slotsAvailable, setSlotsAvailable] = React.useState([]);
+  const [isHoliday, setIsHoliday] = React.useState(false);
   const mois = [
     "01",
     "02",
@@ -43,28 +44,45 @@ const CalendarSection = () => {
       setShowDay(true);
     }
     setDateSelected(value);
-    // const date =
-    //   value.getUTCFullYear() +
-    //   "-" +
-    //   ("00" + (value.getUTCMonth() + 1)).slice(-2) +
-    //   "-" +
-    //   ("00" + value.getUTCDate()).slice(-2) +
-    //   " " +
-    //   ("00" + value.getUTCHours()).slice(-2) +
-    //   ":" +
-    //   ("00" + value.getUTCMinutes()).slice(-2) +
-    //   ":" +
-    //   ("00" + value.getUTCSeconds()).slice(-2);
+
+
+    if (isWeekend(value) === true) {
+      setIsHoliday(true);
+    } else {
+      setIsHoliday(false);
+    }
+
+    const holidays = (await axios.get("/api/conges")).data;
+    for (const holiday of holidays) {
+      console.log(holiday);
+      const start = new Date(
+        holiday.start.split(" ")[0].split("-")[0],
+        holiday.start.split(" ")[0].split("-")[1] - 1,
+        holiday.start.split(" ")[0].split("-")[2]
+      );
+      const end = new Date(
+        holiday.end.split(" ")[0].split("-")[0],
+        holiday.end.split(" ")[0].split("-")[1] - 1,
+        holiday.end.split(" ")[0].split("-")[2]
+      );
+
+      console.log(start);
+      console.log(end);
+
+      if (isAfter(value, start) && isBefore(value, end)) {
+        setIsHoliday(true);
+      }
+    }
 
     const daySelected = value.getDay();
     const daySelectedSQLFormat = format(value, "yyyy-MM-dd");
 
     const slots = (await axios.get(`api/calendar/slots/${daySelected}`))
       .data[0];
-    
-    if(!slots) {
-      setSlotsAvailable([])
-      return 
+
+    if (!slots) {
+      setSlotsAvailable([]);
+      return;
     }
 
     const reservations = (
@@ -78,18 +96,21 @@ const CalendarSection = () => {
 
     const slotsArrayDouble = [];
 
-    for (let i = 0; i < slotsArrayFiltered.length; i++){
-      if (i%2==1) {
-        slotsArrayDouble.push([slotsArrayFiltered[i-1].toString(), slotsArrayFiltered[i]].toString());
+    for (let i = 0; i < slotsArrayFiltered.length; i++) {
+      if (i % 2 == 1) {
+        slotsArrayDouble.push(
+          [
+            slotsArrayFiltered[i - 1].toString(),
+            slotsArrayFiltered[i],
+          ].toString()
+        );
       }
     }
 
-    const reservationArrayDouble = reservations.map(reservation => {
+    const reservationArrayDouble = reservations.map((reservation) => {
       let object = Object.values(reservation);
-      return object.map((date) => date.split(' ')[1].split(':')[0]).toString();
-    })
-    console.log(reservationArrayDouble);
-
+      return object.map((date) => date.split(" ")[1].split(":")[0]).toString();
+    });
 
     for (let reservation of reservationArrayDouble) {
       if (slotsArrayDouble.includes(reservation)) {
@@ -98,14 +119,12 @@ const CalendarSection = () => {
     }
 
     setSlotsAvailable(slotsArrayDouble);
-    console.log(slotsArrayDouble);
-
   };
 
   const postSlot = (slots) => {
-    const day = format(dateSelected, 'yyyy-MM-dd')
-    const start = `${format(dateSelected, 'yyyy-MM-dd')} ${slots[0]}:00:00`
-    const end = `${format(dateSelected, 'yyyy-MM-dd')} ${slots[1]}:00:00`
+    const day = format(dateSelected, "yyyy-MM-dd");
+    const start = `${format(dateSelected, "yyyy-MM-dd")} ${slots[0]}:00:00`;
+    const end = `${format(dateSelected, "yyyy-MM-dd")} ${slots[1]}:00:00`;
     const slot_id = dateSelected.getDay();
 
     const request = {
@@ -113,15 +132,21 @@ const CalendarSection = () => {
       end: end,
       day: day,
       slot_id: slot_id,
-    }
+    };
 
-    axios.post('/api/reservation', request)
-    .then(res => {
-      if (res.data.id) {
-        router.push('/slot-success')
-      }
-    });
-  }
+    axios
+      .post("/api/reservation", request)
+      .then((res) => {
+        if (res.data.id) {
+          router.push("/slot-success");
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          router.push("/login");
+        }
+      });
+  };
 
   if (showDay) {
     dayClass = "day-container-show";
@@ -148,10 +173,16 @@ const CalendarSection = () => {
                 Créneaux disponibles le {dateSelected.getDate()}/
                 {mois[dateSelected.getMonth()]} :
               </h2>
-              {slotsAvailable.map(slot => {
-                const slots = slot.split(',');
-                return <button onClick={() => postSlot(slots)}>{`${slots[0]}H - ${slots[1]}H`}</button>
-              })}
+              {!isHoliday &&
+                slotsAvailable.map((slot) => {
+                  const slots = slot.split(",");
+                  return (
+                    <button
+                      onClick={() => postSlot(slots)}
+                    >{`${slots[0]}h - ${slots[1]}h`}</button>
+                  );
+                })}
+              {isHoliday && <p>Jour non travaillé</p>}
             </div>
           </div>
         </div>

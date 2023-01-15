@@ -161,4 +161,11 @@
     margin-left: 60px;
     margin-right: 60px;
   }
+
+  .supprimer {
+    transform: translate(30em, -4.5em);
+    position: absolute;
+  }
 }
+
+

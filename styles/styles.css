@@ -25,6 +25,8 @@
 
 .navbar-desktop .logo {
   cursor: pointer;
+  height: auto;
+  width: 2.5em;
 }
 
 .navbar-desktop ul {
@@ -53,6 +55,11 @@
   padding: 0 18px;
   font-size: 1.3em;
   border-bottom: 1px solid rgb(142, 170, 184);
+}
+
+.navbar-mobile .logo {
+  height: auto;
+  width: 2.5em;
 }
 
 .menu-mobile.hidden {
@@ -618,10 +625,15 @@
 }
 
 .dashboard {
-  background-color: grey !important;
+  background-color: rgb(216, 216, 216) !important;
+}
+
+.logo-login {
+  height: 8em !important;
+  width: auto;
 }
 
 .supprimer {
-  transform: translate(30em, -4.5em);
+  transform: translate(9em, -1.5em);
   position: absolute;
 }

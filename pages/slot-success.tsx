@@ -1,9 +1,6 @@
-import AppLayout from "../components/Breeze/Layouts/AppLayout";
-import Head from "next/head";
 import { useAuth } from "../hooks/auth";
 import axios from "../lib/axios";
 import { useRouter } from "next/router";
-import { Data } from "@react-google-maps/api";
 import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
@@ -32,7 +29,10 @@ const Dashboard = () => {
   const deleteReservation = (reservationId) => {
     axios
       .delete(`/api/delete-reservation/${reservationId}`)
-      .then((res) => {})
+      .then((res) => {
+        window.alert('Reservation supprimée !')
+        window.location.reload();
+      })
       .catch((error) => {
         if (error) {
           throw error;
@@ -40,13 +40,11 @@ const Dashboard = () => {
       });
   };
 
-  console.log(userSlots);
-
   return (
     <div className={"dashboard"}>
       <Header />
 
-      <div className="py-12">
+      <div className="py-[10rem]">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-6 bg-white border-b border-gray-200">
@@ -61,9 +59,9 @@ const Dashboard = () => {
                   <div className="p-6 bg-white border-b border-gray-200">
                     {`Date : ${slot.day} , de ${
                       slot.start.split(" ")[1].split(":")[0]
-                    }H à ${slot.end.split(" ")[1].split(":")[0]}H`}
+                    }h à ${slot.end.split(" ")[1].split(":")[0]}h`}
                   </div>
-                  <Button onClick={deleteReservation(slot.id)}className={"supprimer"}>Supprimer mon RDV</Button>
+                  <Button onClick={() => deleteReservation(slot.id)} className={"supprimer"}>Supprimer mon RDV</Button>
                 </div>
               );
             })}
