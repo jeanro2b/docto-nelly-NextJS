@@ -8,8 +8,9 @@ import Button from "../components/Breeze/Button";
 
 const Dashboard = () => {
   const { user } = useAuth({ middleware: "auth" });
-  const router = useRouter();
   const userId = user?.id;
+
+  const router = useRouter();
 
   const [userSlots, setUsersSlots] = React.useState([]);
 

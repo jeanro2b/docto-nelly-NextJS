@@ -1,14 +1,18 @@
-import AppLayout from "../components/Breeze/Layouts/AppLayout";
-import Head from "next/head";
 import Header from "../components/Header/Header";
-import Button from "../components/Breeze/Button";
 import axios from "../lib/axios";
 import React from "react";
 import Router, { useRouter } from "next/router";
 import Footer from "../components/Footer/Footer";
+import { useAuth } from "../hooks/auth";
+import Link from "next/link";
 
 const Dashboard = () => {
   const router = useRouter();
+  const { user } = useAuth({ middleware: "admin" });
+  const userId = user?.id;
+  if (user?.role === "user") {
+    router.push("/");
+  }
 
   const [start, setStart] = React.useState("");
   const [end, setEnd] = React.useState("");
@@ -98,7 +102,7 @@ const Dashboard = () => {
   };
 
   const submitMoonday = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       id: 1,
       firstStartMorning: firstStartMorningMo,
@@ -128,7 +132,7 @@ const Dashboard = () => {
   };
 
   const submitTuesday = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       id: 2,
       firstStartMorning: firstStartMorningTu,
@@ -158,7 +162,7 @@ const Dashboard = () => {
   };
 
   const submitWednesday = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       id: 3,
       firstStartMorning: firstStartMorningWe,
@@ -188,7 +192,7 @@ const Dashboard = () => {
   };
 
   const submitThursday = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       id: 4,
       firstStartMorning: firstStartMorningTh,
@@ -218,7 +222,7 @@ const Dashboard = () => {
   };
 
   const submitFriday = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       id: 5,
       firstStartMorning: firstStartMorningFr,
@@ -251,997 +255,942 @@ const Dashboard = () => {
     <div className={"dashboard"}>
       <Header />
 
-        <div className="py-[10rem]">
-          <div className="max-w-7xl mx-auto sm:px-3 lg:px-1">
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-100 inline-block">
-                Postez vos congés :
-              </div>
-              <form
-                onSubmit={submitHoliday}
-                className="p-4 bg-white border-b border-gray-100 inline-block"
-              >
-                <label className="mr-3" for="start">
-                  Date de début
-                </label>
-                <input
-                  className="mr-3"
-                  type="date"
-                  id="start"
-                  name="holiday-start"
-                  min="2023-01-01"
-                  max="2025-01-01"
-                  onChange={(event) => setStart(event.target.value)}
-                  value={start}
-                ></input>
-                <label className="mr-3" for="end">
-                  Date de fin
-                </label>
-                <input
-                  className="mr-3"
-                  type="date"
-                  id="end"
-                  name="holiday-end"
-                  min="2023-01-01"
-                  max="2025-01-01"
-                  onChange={(event) => setEnd(event.target.value)}
-                  value={end}
-                ></input>
-                <button
-                  type="submit"
-                  className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
-                >
-                  Poster
-                </button>
-              </form>
+      <div className="py-[10rem]">
+        <div className="max-w-7xl mx-auto sm:px-3 lg:px-1">
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 bg-white border-b border-gray-200 text-cyan-700">
+              <Link href="/dashboard-reservations">
+                RÉSERVATIONS DES PATIENTS : CLIQUER ICI
+              </Link>
             </div>
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-100 inline-block">
-                Horaires Lundi (1ère ligne matin, 2ème ligne après-midi) :
-              </div>
-              <form
-                onSubmit={submitMoonday}
-                className="p-4 bg-white border-b border-gray-100 inline-block"
+            <div className="p-6 bg-white border-b border-gray-100 inline-block">
+              Postez vos congés :
+            </div>
+            <form
+              onSubmit={submitHoliday}
+              className="p-4 bg-white border-b border-gray-100 inline-block"
+            >
+              <label className="mr-3" for="start">
+                Date de début
+              </label>
+              <input
+                className="mr-3"
+                type="date"
+                id="start"
+                name="holiday-start"
+                min="2023-01-01"
+                max="2025-01-01"
+                onChange={(event) => setStart(event.target.value)}
+                value={start}
+              ></input>
+              <label className="mr-3" for="end">
+                Date de fin
+              </label>
+              <input
+                className="mr-3"
+                type="date"
+                id="end"
+                name="holiday-end"
+                min="2023-01-01"
+                max="2025-01-01"
+                onChange={(event) => setEnd(event.target.value)}
+                value={end}
+              ></input>
+              <button
+                type="submit"
+                className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
               >
-                <select
-                  className="m-3"
-                  name="firstStartMorning"
-                  id="firstStartMorning"
-                  onChange={(event) =>
-                    setFirstStartMorningMo(event.target.value)
-                  }
-                  value={firstStartMorningMo}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="8:00:00">8h</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndMorning"
-                  id="firstEndMorning"
-                  onChange={(event) => setFirstEndMorningMo(event.target.value)}
-                  value={firstEndMorningMo}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartMorning"
-                  id="secondStartMorning"
-                  onChange={(event) =>
-                    setSecondStartMorningMo(event.target.value)
-                  }
-                  value={secondStartMorningMo}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndMorning"
-                  id="secondEndMorning"
-                  onChange={(event) =>
-                    setSecondEndMorningMo(event.target.value)
-                  }
-                  value={secondEndMorningMo}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartMorning"
-                  id="thirdStartMorning"
-                  onChange={(event) =>
-                    setThirdStartMorningMo(event.target.value)
-                  }
-                  value={thirdStartMorningMo}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndMorning"
-                  id="thirdEndMorning"
-                  onChange={(event) => setThirdEndMorningMo(event.target.value)}
-                  value={thirdEndMorningMo}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstStartEvening"
-                  id="firstStartEvening"
-                  onChange={(event) =>
-                    setFirstStartEveningMo(event.target.value)
-                  }
-                  value={firstStartEveningMo}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="14:00:00">14h</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndEvening"
-                  id="firstEndEvening"
-                  onChange={(event) => setFirstEndEveningMo(event.target.value)}
-                  value={firstEndEveningMo}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartEvening"
-                  id="secondStartEvening"
-                  onChange={(event) =>
-                    setSecondStartEveningMo(event.target.value)
-                  }
-                  value={secondStartEveningMo}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndEvening"
-                  id="secondEndEvening"
-                  onChange={(event) =>
-                    setSecondEndEveningMo(event.target.value)
-                  }
-                  value={secondEndEveningMo}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartEvening"
-                  id="thirdStartEvening"
-                  onChange={(event) =>
-                    setThirdStartEveningMo(event.target.value)
-                  }
-                  value={thirdStartEveningMo}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndEvening"
-                  id="thirdEndEvening"
-                  onChange={(event) => setThirdEndEveningMo(event.target.value)}
-                  value={thirdEndEveningMo}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
+                Poster
+              </button>
+            </form>
+          </div>
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 bg-white border-b border-gray-100 inline-block">
+              Horaires Lundi (1ère ligne matin, 2ème ligne après-midi) :
+            </div>
+            <form
+              onSubmit={submitMoonday}
+              className="p-4 bg-white border-b border-gray-100 inline-block"
+            >
+              <select
+                className="m-3"
+                name="firstStartMorning"
+                id="firstStartMorning"
+                onChange={(event) => setFirstStartMorningMo(event.target.value)}
+                value={firstStartMorningMo}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="8:00:00">8h</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndMorning"
+                id="firstEndMorning"
+                onChange={(event) => setFirstEndMorningMo(event.target.value)}
+                value={firstEndMorningMo}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartMorning"
+                id="secondStartMorning"
+                onChange={(event) =>
+                  setSecondStartMorningMo(event.target.value)
+                }
+                value={secondStartMorningMo}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndMorning"
+                id="secondEndMorning"
+                onChange={(event) => setSecondEndMorningMo(event.target.value)}
+                value={secondEndMorningMo}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartMorning"
+                id="thirdStartMorning"
+                onChange={(event) => setThirdStartMorningMo(event.target.value)}
+                value={thirdStartMorningMo}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndMorning"
+                id="thirdEndMorning"
+                onChange={(event) => setThirdEndMorningMo(event.target.value)}
+                value={thirdEndMorningMo}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstStartEvening"
+                id="firstStartEvening"
+                onChange={(event) => setFirstStartEveningMo(event.target.value)}
+                value={firstStartEveningMo}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="14:00:00">14h</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndEvening"
+                id="firstEndEvening"
+                onChange={(event) => setFirstEndEveningMo(event.target.value)}
+                value={firstEndEveningMo}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartEvening"
+                id="secondStartEvening"
+                onChange={(event) =>
+                  setSecondStartEveningMo(event.target.value)
+                }
+                value={secondStartEveningMo}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndEvening"
+                id="secondEndEvening"
+                onChange={(event) => setSecondEndEveningMo(event.target.value)}
+                value={secondEndEveningMo}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartEvening"
+                id="thirdStartEvening"
+                onChange={(event) => setThirdStartEveningMo(event.target.value)}
+                value={thirdStartEveningMo}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndEvening"
+                id="thirdEndEvening"
+                onChange={(event) => setThirdEndEveningMo(event.target.value)}
+                value={thirdEndEveningMo}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
 
-                <button
-                  type="submit"
-                  className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
-                >
-                  Poster
-                </button>
-              </form>
-            </div>
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-100 inline-block">
-                Horaires Mardi (1ère ligne matin, 2ème ligne après-midi) :
-              </div>
-              <form
-                onSubmit={submitTuesday}
-                className="p-4 bg-white border-b border-gray-100 inline-block"
+              <button
+                type="submit"
+                className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
               >
-                <select
-                  className="m-3"
-                  name="firstStartMorning"
-                  id="firstStartMorning"
-                  onChange={(event) =>
-                    setFirstStartMorningTu(event.target.value)
-                  }
-                  value={firstStartMorningTu}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="8:00:00">8h</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndMorning"
-                  id="firstEndMorning"
-                  onChange={(event) => setFirstEndMorningTu(event.target.value)}
-                  value={firstEndMorningTu}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartMorning"
-                  id="secondStartMorning"
-                  onChange={(event) =>
-                    setSecondStartMorningTu(event.target.value)
-                  }
-                  value={secondStartMorningTu}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndMorning"
-                  id="secondEndMorning"
-                  onChange={(event) =>
-                    setSecondEndMorningTu(event.target.value)
-                  }
-                  value={secondEndMorningTu}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartMorning"
-                  id="thirdStartMorning"
-                  onChange={(event) =>
-                    setThirdStartMorningTu(event.target.value)
-                  }
-                  value={thirdStartMorningTu}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndMorning"
-                  id="thirdEndMorning"
-                  onChange={(event) => setThirdEndMorningTu(event.target.value)}
-                  value={thirdEndMorningTu}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstStartEvening"
-                  id="firstStartEvening"
-                  onChange={(event) =>
-                    setFirstStartEveningTu(event.target.value)
-                  }
-                  value={firstStartEveningTu}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="14:00:00">14h</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndEvening"
-                  id="firstEndEvening"
-                  onChange={(event) => setFirstEndEveningTu(event.target.value)}
-                  value={firstEndEveningTu}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartEvening"
-                  id="secondStartEvening"
-                  onChange={(event) =>
-                    setSecondStartEveningTu(event.target.value)
-                  }
-                  value={secondStartEveningTu}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndEvening"
-                  id="secondEndEvening"
-                  onChange={(event) =>
-                    setSecondEndEveningTu(event.target.value)
-                  }
-                  value={secondEndEveningTu}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartEvening"
-                  id="thirdStartEvening"
-                  onChange={(event) =>
-                    setThirdStartEveningTu(event.target.value)
-                  }
-                  value={thirdStartEveningTu}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndEvening"
-                  id="thirdEndEvening"
-                  onChange={(event) => setThirdEndEveningTu(event.target.value)}
-                  value={thirdEndEveningTu}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-
-                <button
-                  type="submit"
-                  className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
-                >
-                  Poster
-                </button>
-              </form>
+                Poster
+              </button>
+            </form>
+          </div>
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 bg-white border-b border-gray-100 inline-block">
+              Horaires Mardi (1ère ligne matin, 2ème ligne après-midi) :
             </div>
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-100 inline-block">
-                Horaires Mercredi (1ère ligne matin, 2ème ligne après-midi) :
-              </div>
-              <form
-                onSubmit={submitWednesday}
-                className="p-4 bg-white border-b border-gray-100 inline-block"
+            <form
+              onSubmit={submitTuesday}
+              className="p-4 bg-white border-b border-gray-100 inline-block"
+            >
+              <select
+                className="m-3"
+                name="firstStartMorning"
+                id="firstStartMorning"
+                onChange={(event) => setFirstStartMorningTu(event.target.value)}
+                value={firstStartMorningTu}
               >
-                <select
-                  className="m-3"
-                  name="firstStartMorning"
-                  id="firstStartMorning"
-                  onChange={(event) =>
-                    setFirstStartMorningWe(event.target.value)
-                  }
-                  value={firstStartMorningWe}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="8:00:00">8h</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndMorning"
-                  id="firstEndMorning"
-                  onChange={(event) => setFirstEndMorningWe(event.target.value)}
-                  value={firstEndMorningWe}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartMorning"
-                  id="secondStartMorning"
-                  onChange={(event) =>
-                    setSecondStartMorningWe(event.target.value)
-                  }
-                  value={secondStartMorningWe}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndMorning"
-                  id="secondEndMorning"
-                  onChange={(event) =>
-                    setSecondEndMorningWe(event.target.value)
-                  }
-                  value={secondEndMorningWe}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartMorning"
-                  id="thirdStartMorning"
-                  onChange={(event) =>
-                    setThirdStartMorningWe(event.target.value)
-                  }
-                  value={thirdStartMorningWe}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndMorning"
-                  id="thirdEndMorning"
-                  onChange={(event) => setThirdEndMorningWe(event.target.value)}
-                  value={thirdEndMorningWe}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstStartEvening"
-                  id="firstStartEvening"
-                  onChange={(event) =>
-                    setFirstStartEveningWe(event.target.value)
-                  }
-                  value={firstStartEveningWe}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="14:00:00">14h</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndEvening"
-                  id="firstEndEvening"
-                  onChange={(event) => setFirstEndEveningWe(event.target.value)}
-                  value={firstEndEveningWe}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartEvening"
-                  id="secondStartEvening"
-                  onChange={(event) =>
-                    setSecondStartEveningWe(event.target.value)
-                  }
-                  value={secondStartEveningWe}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndEvening"
-                  id="secondEndEvening"
-                  onChange={(event) =>
-                    setSecondEndEveningWe(event.target.value)
-                  }
-                  value={secondEndEveningWe}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartEvening"
-                  id="thirdStartEvening"
-                  onChange={(event) =>
-                    setThirdStartEveningWe(event.target.value)
-                  }
-                  value={thirdStartEveningWe}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndEvening"
-                  id="thirdEndEvening"
-                  onChange={(event) => setThirdEndEveningWe(event.target.value)}
-                  value={thirdEndEveningWe}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-
-                <button
-                  type="submit"
-                  className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
-                >
-                  Poster
-                </button>
-              </form>
-            </div>
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-100 inline-block">
-                Horaires Jeudi (1ère ligne matin, 2ème ligne après-midi) :
-              </div>
-              <form
-                onSubmit={submitThursday}
-                className="p-4 bg-white border-b border-gray-100 inline-block"
+                <option value="">Début 1e horaire</option>
+                <option value="8:00:00">8h</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndMorning"
+                id="firstEndMorning"
+                onChange={(event) => setFirstEndMorningTu(event.target.value)}
+                value={firstEndMorningTu}
               >
-                <select
-                  className="m-3"
-                  name="firstStartMorning"
-                  id="firstStartMorning"
-                  onChange={(event) =>
-                    setFirstStartMorningTh(event.target.value)
-                  }
-                  value={firstStartMorningTh}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="8:00:00">8h</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndMorning"
-                  id="firstEndMorning"
-                  onChange={(event) => setFirstEndMorningTh(event.target.value)}
-                  value={firstEndMorningTh}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartMorning"
-                  id="secondStartMorning"
-                  onChange={(event) =>
-                    setSecondStartMorningTh(event.target.value)
-                  }
-                  value={secondStartMorningTh}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndMorning"
-                  id="secondEndMorning"
-                  onChange={(event) =>
-                    setSecondEndMorningTh(event.target.value)
-                  }
-                  value={secondEndMorningTh}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartMorning"
-                  id="thirdStartMorning"
-                  onChange={(event) =>
-                    setThirdStartMorningTh(event.target.value)
-                  }
-                  value={thirdStartMorningTh}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndMorning"
-                  id="thirdEndMorning"
-                  onChange={(event) => setThirdEndMorningTh(event.target.value)}
-                  value={thirdEndMorningTh}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstStartEvening"
-                  id="firstStartEvening"
-                  onChange={(event) =>
-                    setFirstStartEveningTh(event.target.value)
-                  }
-                  value={firstStartEveningTh}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="14:00:00">14h</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndEvening"
-                  id="firstEndEvening"
-                  onChange={(event) => setFirstEndEveningTh(event.target.value)}
-                  value={firstEndEveningTh}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartEvening"
-                  id="secondStartEvening"
-                  onChange={(event) =>
-                    setSecondStartEveningTh(event.target.value)
-                  }
-                  value={secondStartEveningTh}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndEvening"
-                  id="secondEndEvening"
-                  onChange={(event) =>
-                    setSecondEndEveningTh(event.target.value)
-                  }
-                  value={secondEndEveningTh}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartEvening"
-                  id="thirdStartEvening"
-                  onChange={(event) =>
-                    setThirdStartEveningTh(event.target.value)
-                  }
-                  value={thirdStartEveningTh}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndEvening"
-                  id="thirdEndEvening"
-                  onChange={(event) => setThirdEndEveningTh(event.target.value)}
-                  value={thirdEndEveningTh}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-
-                <button
-                  type="submit"
-                  className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
-                >
-                  Poster
-                </button>
-              </form>
-            </div>
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-100 inline-block">
-                Horaires Vendredi (1ère ligne matin, 2ème ligne après-midi) :
-              </div>
-              <form
-                onSubmit={submitFriday}
-                className="p-4 bg-white border-b border-gray-100 inline-block"
+                <option value="">Fin 1er horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartMorning"
+                id="secondStartMorning"
+                onChange={(event) =>
+                  setSecondStartMorningTu(event.target.value)
+                }
+                value={secondStartMorningTu}
               >
-                <select
-                  className="m-3"
-                  name="firstStartMorning"
-                  id="firstStartMorning"
-                  onChange={(event) =>
-                    setFirstStartMorningFr(event.target.value)
-                  }
-                  value={firstStartMorningFr}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="8:00:00">8h</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndMorning"
-                  id="firstEndMorning"
-                  onChange={(event) => setFirstEndMorningFr(event.target.value)}
-                  value={firstEndMorningFr}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartMorning"
-                  id="secondStartMorning"
-                  onChange={(event) =>
-                    setSecondStartMorningFr(event.target.value)
-                  }
-                  value={secondStartMorningFr}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="9:00:00">9h</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndMorning"
-                  id="secondEndMorning"
-                  onChange={(event) =>
-                    setSecondEndMorningFr(event.target.value)
-                  }
-                  value={secondEndMorningFr}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartMorning"
-                  id="thirdStartMorning"
-                  onChange={(event) =>
-                    setThirdStartMorningFr(event.target.value)
-                  }
-                  value={thirdStartMorningFr}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="10:00:00">10h</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndMorning"
-                  id="thirdEndMorning"
-                  onChange={(event) => setThirdEndMorningFr(event.target.value)}
-                  value={thirdEndMorningFr}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="11:00:00">11h</option>
-                  <option value="12:00:00">12h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstStartEvening"
-                  id="firstStartEvening"
-                  onChange={(event) =>
-                    setFirstStartEveningFr(event.target.value)
-                  }
-                  value={firstStartEveningFr}
-                >
-                  <option value="">Début 1e horaire</option>
-                  <option value="14:00:00">14h</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="firstEndEvening"
-                  id="firstEndEvening"
-                  onChange={(event) => setFirstEndEveningFr(event.target.value)}
-                  value={firstEndEveningFr}
-                >
-                  <option value="">Fin 1er horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondStartEvening"
-                  id="secondStartEvening"
-                  onChange={(event) =>
-                    setSecondStartEveningFr(event.target.value)
-                  }
-                  value={secondStartEveningFr}
-                >
-                  <option value="">Début 2è horaire</option>
-                  <option value="15:00:00">15h</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="secondEndEvening"
-                  id="secondEndEvening"
-                  onChange={(event) =>
-                    setSecondEndEveningFr(event.target.value)
-                  }
-                  value={secondEndEveningFr}
-                >
-                  <option value="">Fin 2è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdStartEvening"
-                  id="thirdStartEvening"
-                  onChange={(event) =>
-                    setThirdStartEveningFr(event.target.value)
-                  }
-                  value={thirdStartEveningFr}
-                >
-                  <option value="">Début 3è horaire</option>
-                  <option value="16:00:00">16h</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
-                <select
-                  className="m-3"
-                  name="thirdEndEvening"
-                  id="thirdEndEvening"
-                  onChange={(event) => setThirdEndEveningFr(event.target.value)}
-                  value={thirdEndEveningFr}
-                >
-                  <option value="">Fin 3è horaire</option>
-                  <option value="17:00:00">17h</option>
-                  <option value="18:00:00">18h</option>
-                  <option value="00:00:00">Horaire vide</option>
-                </select>
+                <option value="">Début 2è horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndMorning"
+                id="secondEndMorning"
+                onChange={(event) => setSecondEndMorningTu(event.target.value)}
+                value={secondEndMorningTu}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartMorning"
+                id="thirdStartMorning"
+                onChange={(event) => setThirdStartMorningTu(event.target.value)}
+                value={thirdStartMorningTu}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndMorning"
+                id="thirdEndMorning"
+                onChange={(event) => setThirdEndMorningTu(event.target.value)}
+                value={thirdEndMorningTu}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstStartEvening"
+                id="firstStartEvening"
+                onChange={(event) => setFirstStartEveningTu(event.target.value)}
+                value={firstStartEveningTu}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="14:00:00">14h</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndEvening"
+                id="firstEndEvening"
+                onChange={(event) => setFirstEndEveningTu(event.target.value)}
+                value={firstEndEveningTu}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartEvening"
+                id="secondStartEvening"
+                onChange={(event) =>
+                  setSecondStartEveningTu(event.target.value)
+                }
+                value={secondStartEveningTu}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndEvening"
+                id="secondEndEvening"
+                onChange={(event) => setSecondEndEveningTu(event.target.value)}
+                value={secondEndEveningTu}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartEvening"
+                id="thirdStartEvening"
+                onChange={(event) => setThirdStartEveningTu(event.target.value)}
+                value={thirdStartEveningTu}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndEvening"
+                id="thirdEndEvening"
+                onChange={(event) => setThirdEndEveningTu(event.target.value)}
+                value={thirdEndEveningTu}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
 
-                <button
-                  type="submit"
-                  className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
-                >
-                  Poster
-                </button>
-              </form>
+              <button
+                type="submit"
+                className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
+              >
+                Poster
+              </button>
+            </form>
+          </div>
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 bg-white border-b border-gray-100 inline-block">
+              Horaires Mercredi (1ère ligne matin, 2ème ligne après-midi) :
             </div>
+            <form
+              onSubmit={submitWednesday}
+              className="p-4 bg-white border-b border-gray-100 inline-block"
+            >
+              <select
+                className="m-3"
+                name="firstStartMorning"
+                id="firstStartMorning"
+                onChange={(event) => setFirstStartMorningWe(event.target.value)}
+                value={firstStartMorningWe}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="8:00:00">8h</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndMorning"
+                id="firstEndMorning"
+                onChange={(event) => setFirstEndMorningWe(event.target.value)}
+                value={firstEndMorningWe}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartMorning"
+                id="secondStartMorning"
+                onChange={(event) =>
+                  setSecondStartMorningWe(event.target.value)
+                }
+                value={secondStartMorningWe}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndMorning"
+                id="secondEndMorning"
+                onChange={(event) => setSecondEndMorningWe(event.target.value)}
+                value={secondEndMorningWe}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartMorning"
+                id="thirdStartMorning"
+                onChange={(event) => setThirdStartMorningWe(event.target.value)}
+                value={thirdStartMorningWe}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndMorning"
+                id="thirdEndMorning"
+                onChange={(event) => setThirdEndMorningWe(event.target.value)}
+                value={thirdEndMorningWe}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstStartEvening"
+                id="firstStartEvening"
+                onChange={(event) => setFirstStartEveningWe(event.target.value)}
+                value={firstStartEveningWe}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="14:00:00">14h</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndEvening"
+                id="firstEndEvening"
+                onChange={(event) => setFirstEndEveningWe(event.target.value)}
+                value={firstEndEveningWe}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartEvening"
+                id="secondStartEvening"
+                onChange={(event) =>
+                  setSecondStartEveningWe(event.target.value)
+                }
+                value={secondStartEveningWe}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndEvening"
+                id="secondEndEvening"
+                onChange={(event) => setSecondEndEveningWe(event.target.value)}
+                value={secondEndEveningWe}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartEvening"
+                id="thirdStartEvening"
+                onChange={(event) => setThirdStartEveningWe(event.target.value)}
+                value={thirdStartEveningWe}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndEvening"
+                id="thirdEndEvening"
+                onChange={(event) => setThirdEndEveningWe(event.target.value)}
+                value={thirdEndEveningWe}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+
+              <button
+                type="submit"
+                className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
+              >
+                Poster
+              </button>
+            </form>
+          </div>
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 bg-white border-b border-gray-100 inline-block">
+              Horaires Jeudi (1ère ligne matin, 2ème ligne après-midi) :
+            </div>
+            <form
+              onSubmit={submitThursday}
+              className="p-4 bg-white border-b border-gray-100 inline-block"
+            >
+              <select
+                className="m-3"
+                name="firstStartMorning"
+                id="firstStartMorning"
+                onChange={(event) => setFirstStartMorningTh(event.target.value)}
+                value={firstStartMorningTh}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="8:00:00">8h</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndMorning"
+                id="firstEndMorning"
+                onChange={(event) => setFirstEndMorningTh(event.target.value)}
+                value={firstEndMorningTh}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartMorning"
+                id="secondStartMorning"
+                onChange={(event) =>
+                  setSecondStartMorningTh(event.target.value)
+                }
+                value={secondStartMorningTh}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndMorning"
+                id="secondEndMorning"
+                onChange={(event) => setSecondEndMorningTh(event.target.value)}
+                value={secondEndMorningTh}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartMorning"
+                id="thirdStartMorning"
+                onChange={(event) => setThirdStartMorningTh(event.target.value)}
+                value={thirdStartMorningTh}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndMorning"
+                id="thirdEndMorning"
+                onChange={(event) => setThirdEndMorningTh(event.target.value)}
+                value={thirdEndMorningTh}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstStartEvening"
+                id="firstStartEvening"
+                onChange={(event) => setFirstStartEveningTh(event.target.value)}
+                value={firstStartEveningTh}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="14:00:00">14h</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndEvening"
+                id="firstEndEvening"
+                onChange={(event) => setFirstEndEveningTh(event.target.value)}
+                value={firstEndEveningTh}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartEvening"
+                id="secondStartEvening"
+                onChange={(event) =>
+                  setSecondStartEveningTh(event.target.value)
+                }
+                value={secondStartEveningTh}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndEvening"
+                id="secondEndEvening"
+                onChange={(event) => setSecondEndEveningTh(event.target.value)}
+                value={secondEndEveningTh}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartEvening"
+                id="thirdStartEvening"
+                onChange={(event) => setThirdStartEveningTh(event.target.value)}
+                value={thirdStartEveningTh}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndEvening"
+                id="thirdEndEvening"
+                onChange={(event) => setThirdEndEveningTh(event.target.value)}
+                value={thirdEndEveningTh}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+
+              <button
+                type="submit"
+                className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
+              >
+                Poster
+              </button>
+            </form>
+          </div>
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 bg-white border-b border-gray-100 inline-block">
+              Horaires Vendredi (1ère ligne matin, 2ème ligne après-midi) :
+            </div>
+            <form
+              onSubmit={submitFriday}
+              className="p-4 bg-white border-b border-gray-100 inline-block"
+            >
+              <select
+                className="m-3"
+                name="firstStartMorning"
+                id="firstStartMorning"
+                onChange={(event) => setFirstStartMorningFr(event.target.value)}
+                value={firstStartMorningFr}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="8:00:00">8h</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndMorning"
+                id="firstEndMorning"
+                onChange={(event) => setFirstEndMorningFr(event.target.value)}
+                value={firstEndMorningFr}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartMorning"
+                id="secondStartMorning"
+                onChange={(event) =>
+                  setSecondStartMorningFr(event.target.value)
+                }
+                value={secondStartMorningFr}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="9:00:00">9h</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndMorning"
+                id="secondEndMorning"
+                onChange={(event) => setSecondEndMorningFr(event.target.value)}
+                value={secondEndMorningFr}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartMorning"
+                id="thirdStartMorning"
+                onChange={(event) => setThirdStartMorningFr(event.target.value)}
+                value={thirdStartMorningFr}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="10:00:00">10h</option>
+                <option value="11:00:00">11h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndMorning"
+                id="thirdEndMorning"
+                onChange={(event) => setThirdEndMorningFr(event.target.value)}
+                value={thirdEndMorningFr}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="11:00:00">11h</option>
+                <option value="12:00:00">12h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstStartEvening"
+                id="firstStartEvening"
+                onChange={(event) => setFirstStartEveningFr(event.target.value)}
+                value={firstStartEveningFr}
+              >
+                <option value="">Début 1e horaire</option>
+                <option value="14:00:00">14h</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="firstEndEvening"
+                id="firstEndEvening"
+                onChange={(event) => setFirstEndEveningFr(event.target.value)}
+                value={firstEndEveningFr}
+              >
+                <option value="">Fin 1er horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondStartEvening"
+                id="secondStartEvening"
+                onChange={(event) =>
+                  setSecondStartEveningFr(event.target.value)
+                }
+                value={secondStartEveningFr}
+              >
+                <option value="">Début 2è horaire</option>
+                <option value="15:00:00">15h</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="secondEndEvening"
+                id="secondEndEvening"
+                onChange={(event) => setSecondEndEveningFr(event.target.value)}
+                value={secondEndEveningFr}
+              >
+                <option value="">Fin 2è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdStartEvening"
+                id="thirdStartEvening"
+                onChange={(event) => setThirdStartEveningFr(event.target.value)}
+                value={thirdStartEveningFr}
+              >
+                <option value="">Début 3è horaire</option>
+                <option value="16:00:00">16h</option>
+                <option value="17:00:00">17h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+              <select
+                className="m-3"
+                name="thirdEndEvening"
+                id="thirdEndEvening"
+                onChange={(event) => setThirdEndEveningFr(event.target.value)}
+                value={thirdEndEveningFr}
+              >
+                <option value="">Fin 3è horaire</option>
+                <option value="17:00:00">17h</option>
+                <option value="18:00:00">18h</option>
+                <option value="00:00:00">Horaire vide</option>
+              </select>
+
+              <button
+                type="submit"
+                className={`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-7`}
+              >
+                Poster
+              </button>
+            </form>
           </div>
         </div>
+      </div>
       <Footer />
     </div>
   );

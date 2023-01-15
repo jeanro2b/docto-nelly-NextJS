@@ -10,8 +10,6 @@ import Footer from "../components/Footer/Footer";
 
 
 const Home = () => {
-
-
   const scrollRef = React.useRef<any>();
 
   const scrollToRegister = () => {

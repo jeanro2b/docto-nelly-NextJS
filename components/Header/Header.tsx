@@ -10,7 +10,12 @@ import LOGO from "../../public/images/LOGO.png";
 const Header = () => {
   const { user, logout } = useAuth();
   const id = user?.id;
-  console.log(id);
+  let admin = false;
+  if (user?.role === "admin") {
+    admin = true;
+  } else {
+    admin = false;
+  }
 
   const [showMenu, setShowMenu] = React.useState(false);
   const [navbar, setNavbar] = React.useState(false);
@@ -91,6 +96,11 @@ const Header = () => {
                 <Link href="/login">Connexion</Link>
               </li>
             )}
+            {admin && (
+              <li>
+                <Link href="/dahboard">Dashboard Admin</Link>
+              </li>
+            )}
           </ul>
         </div>
         <div className={nav}>
@@ -125,6 +135,11 @@ const Header = () => {
             {!id && (
               <li>
                 <Link href="/login">CONNEXION</Link>
+              </li>
+            )}
+            {admin && (
+              <li>
+                <Link href="/dashboard">DASHBOARD ADMIN</Link>
               </li>
             )}
           </ul>
