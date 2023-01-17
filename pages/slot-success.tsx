@@ -5,6 +5,8 @@ import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Breeze/Button";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 const Dashboard = () => {
   const { user } = useAuth({ middleware: "auth" });
@@ -58,7 +60,17 @@ const Dashboard = () => {
               return (
                 <div>
                   <div className="p-6 bg-white border-b border-gray-200">
-                    {`Date : ${slot.day} , de ${
+                    {`Date : ${format(
+                      new Date(
+                        slot.day.split("-")[0],
+                        slot.day.split("-")[1],
+                        slot.day.split("-")[2]
+                      ),
+                      "'Le' EEEE dd MMMM yyyy",
+                      {
+                        locale: fr,
+                      }
+                    )} , de ${
                       slot.start.split(" ")[1].split(":")[0]
                     }h à ${slot.end.split(" ")[1].split(":")[0]}h`}
                   </div>

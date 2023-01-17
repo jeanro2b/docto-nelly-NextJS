@@ -53,6 +53,8 @@ const CalendarSection = () => {
       setIsHoliday(false);
     }
 
+    // On regarde grâce à la méthode isWeekend de la libraire fns si le jour selectionné fait partie d'un weekend
+
     const holidays = (await axios.get("/api/conges")).data;
     for (const holiday of holidays) {
       console.log(holiday);
@@ -73,13 +75,19 @@ const CalendarSection = () => {
       if (isAfter(value, start) && isBefore(value, end)) {
         setIsHoliday(true);
       }
+
+      // Utilisation de la librairie date-fns : 2 méthodes, isAfter et isBefore.
+      // On fait une boucle for sur toutes les vacances get, puis on regarde pour chacune d'entre elles si la date sélectionnée est après le début d'un congé, et avant la fin de celui-ci. Si oui, isHoliday passe a true.
     }
 
     const daySelected = value.getDay();
     const daySelectedSQLFormat = format(value, "yyyy-MM-dd");
+    // On formate les date grâce à la libraire fns au format SQL
 
     const slots = (await axios.get(`api/calendar/slots/${daySelected}`))
       .data[0];
+
+    // On récupère les créneaux d'ouverture de la journée 
 
     if (!slots) {
       setSlotsAvailable([]);
@@ -90,10 +98,14 @@ const CalendarSection = () => {
       await axios.get(`/api/calendar/${daySelectedSQLFormat}`)
     ).data;
 
+    // on récupère les réservations de la journée
+
     const slotsArrayDouble = regroupAndDeleteSlots(slots);
     const reservationArrayDouble = regroupReservations(reservations);
     deleteReservationsOfSlots(reservationArrayDouble, slotsArrayDouble);
     setSlotsAvailable(slotsArrayDouble);
+
+    // On travaille la donnée pour supprimer les reservations existantes du jour des créneaux disponibles
   };
 
   const postSlot = (slots) => {

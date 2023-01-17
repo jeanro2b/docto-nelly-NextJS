@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/login.js", "pages/forgot-password.js", "pages/register.js"  ],
+, "pages/login.js", "pages/forgot-password.js", "pages/register.js", "hooks/auth.js", "lib/axios.js"  ],
   "exclude": [
     "node_modules"
   ]

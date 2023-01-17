@@ -1,11 +1,12 @@
 import Header from "../components/Header/Header";
 import axios from "../lib/axios";
 import React from "react";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Footer from "../components/Footer/Footer";
 import { useAuth } from "../hooks/auth";
-import Link from "next/link";
 import Button from "../components/Breeze/Button";
+import { format } from "date-fns";
+import fr from "date-fns/esm/locale/fr/index.js";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -31,11 +32,13 @@ const Dashboard = () => {
       });
   }, [userId]);
 
+  // A l'affichage de la page, useEffect pour get toutes les reservations
+
   const deleteReservation = (reservationId) => {
     axios
       .delete(`/api/delete-reservation/${reservationId}`)
       .then((res) => {
-        window.alert('Reservation supprimée !')
+        window.alert("Reservation supprimée !");
         window.location.reload();
       })
       .catch((error) => {
@@ -44,6 +47,13 @@ const Dashboard = () => {
         }
       });
   };
+
+  const result = format(new Date(2014, 6, 2), "'Le' EEEE dd MMMM yyyy", {
+    locale: fr,
+  });
+  console.log(result);
+
+  // Fonction pour appeler la méthode "delete" d'une reservation, en fonction de son ID
 
   return (
     <div className={"dashboard"}>
@@ -55,25 +65,37 @@ const Dashboard = () => {
             <div className="p-6 bg-white border-b border-gray-200">
               Réservations des patients :
             </div>
+            {/* On mappe sur toutes les reservations pour les afficher ligne par ligne */}
             {allReservations.map((reservation) => {
               return (
                 <div className="bg-white border-b border-gray-200">
-                  <div className="p-6 bg-white border-b border-gray-200 inline-block">
-                    {`Date : ${reservation.day} , de ${
+                  <div className="p-4 bg-white border-b border-gray-200 inline-block">
+                    {`Date : ${format(
+                      new Date(
+                        reservation.day.split("-")[0],
+                        reservation.day.split("-")[1],
+                        reservation.day.split("-")[2]
+                      ),
+                      "'Le' EEEE dd MMMM yyyy",
+                      {
+                        locale: fr,
+                      }
+                    )} , de ${
                       reservation.start.split(" ")[1].split(":")[0]
                     }h à ${reservation.end.split(" ")[1].split(":")[0]}h`}
                   </div>
-                  <div className="p-6 bg-white border-b border-gray-200 inline-block">
+                  <div className="p-4 bg-white border-b border-gray-200 inline-block">
                     {`Nom du patient : ${reservation.name}`}
                   </div>
-                  <div className="p-6 bg-white border-b border-gray-200 inline-block">
+                  <div className="p-4 bg-white border-b border-gray-200 inline-block">
                     {`Téléphone du patient : ${reservation.phone}`}
                   </div>
-                  <div className="p-6 bg-white border-b border-gray-200 inline-block">
+                  <div className="p-4 bg-white border-b border-gray-200 inline-block">
                     {`Mail du patient : ${reservation.email}`}
                   </div>
                   <Button
                     onClick={() => deleteReservation(reservation.id)}
+                    // On passe l'id de la réservation au bouton pour l'envoyer à la méthodé delete et supprimer la bonne réservation
                     className={""}
                   >
                     Supprimer le RDV
