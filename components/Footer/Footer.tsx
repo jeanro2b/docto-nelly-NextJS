@@ -24,11 +24,11 @@ const Footer = () => {
       <div className={"footer-section"}>
         <h1>Coordonnées</h1>
         <ul>
-          <li>Avenue de JC le Gros BG</li>
-          <li>06 12 12 12 12</li>
-          <li>jclegrosbg@hotmail.fr</li>
-          <li>Numéro Adeli : 12 12 12 12 12</li>
-          <li>Numéro de Siret : 121 121 121 000 12</li>
+          <li>155 Avenue des Chartreux, 13004 Marseille</li>
+          <li>06 12 45 59 12 48</li>
+          <li>nellyamoretti@contact.com</li>
+          <li>Numéro Adeli : 45 34 76 12 94</li>
+          <li>Numéro de Siret : 121 341 563 156 124</li>
         </ul>
       </div>
       <div className={"footer-section-lr"}>

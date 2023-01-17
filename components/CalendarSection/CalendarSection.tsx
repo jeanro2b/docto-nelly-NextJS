@@ -4,6 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import { format, isAfter, isBefore, isWeekend } from "date-fns";
 import axios from "../../lib/axios";
 import { useRouter } from "next/router";
+import { regroupAndDeleteSlots, regroupReservations, deleteReservationsOfSlots } from '../../lib/shared_functions'
 
 const CalendarSection = () => {
   const router = useRouter();
@@ -89,35 +90,9 @@ const CalendarSection = () => {
       await axios.get(`/api/calendar/${daySelectedSQLFormat}`)
     ).data;
 
-    let slotsArray = Object.values(slots);
-    slotsArray = slotsArray.map((slot) => slot.split(":")[0]);
-
-    const slotsArrayFiltered = slotsArray.filter((slot) => slot != "00");
-
-    const slotsArrayDouble = [];
-
-    for (let i = 0; i < slotsArrayFiltered.length; i++) {
-      if (i % 2 == 1) {
-        slotsArrayDouble.push(
-          [
-            slotsArrayFiltered[i - 1].toString(),
-            slotsArrayFiltered[i],
-          ].toString()
-        );
-      }
-    }
-
-    const reservationArrayDouble = reservations.map((reservation) => {
-      let object = Object.values(reservation);
-      return object.map((date) => date.split(" ")[1].split(":")[0]).toString();
-    });
-
-    for (let reservation of reservationArrayDouble) {
-      if (slotsArrayDouble.includes(reservation)) {
-        slotsArrayDouble.splice(slotsArrayDouble.indexOf(reservation), 1);
-      }
-    }
-
+    const slotsArrayDouble = regroupAndDeleteSlots(slots);
+    const reservationArrayDouble = regroupReservations(reservations);
+    deleteReservationsOfSlots(reservationArrayDouble, slotsArrayDouble);
     setSlotsAvailable(slotsArrayDouble);
   };
 

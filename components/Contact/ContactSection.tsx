@@ -28,8 +28,8 @@ const ContactSection = () => {
             <ul>
               <li>Psychologue Clinicienne - Marseille</li>
               <li>Adulte - Adolescent - Sénior - Famille</li>
-              <li>Master blablabla</li>
-              <li>Spécialisée en blablabla</li>
+              <li>Master 2 en psychologie clinique</li>
+              <li>Psychologue clinicienne Lacanienne - Freudienne</li>
             </ul>
           </div>
         </div>
@@ -40,10 +40,10 @@ const ContactSection = () => {
           <div className={"contact-text"}>
             <h1>Me contacter</h1>
             <ul>
-              <li>Tel : 06 06 06 06 06</li>
-              <li>Mail : jclegrosbg@hotmail.fr</li>
-              <li>12 avenue de JC le gros BG</li>
-              <li>Centre paramédical de mon zbi</li>
+              <li>Tel : 06 12 45 59 12 48</li>
+              <li>Mail : nellyamoretti@contact.com</li>
+              <li>155 Avenue des Chartreux</li>
+              <li>13004 Marseille</li>
             </ul>
           </div>
         </div>
@@ -56,7 +56,7 @@ const ContactSection = () => {
           <div className={"contact-text"}>
             <h1>Horaires</h1>
             <ul>
-              <li>Du Lundi au Vendredi de 9h à 17h sur rendez-vous</li>
+              <li>Du Lundi au Vendredi, horaires présents sur le calendrier, généralement entre 8h et 18h.</li>
               <li>
                 <Link href="/">
                   <button>Prendre Rendez-Vous</button>

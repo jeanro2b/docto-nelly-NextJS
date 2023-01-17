@@ -67,6 +67,9 @@ const Dashboard = () => {
                     {`Nom du patient : ${reservation.name}`}
                   </div>
                   <div className="p-6 bg-white border-b border-gray-200 inline-block">
+                    {`Téléphone du patient : ${reservation.phone}`}
+                  </div>
+                  <div className="p-6 bg-white border-b border-gray-200 inline-block">
                     {`Mail du patient : ${reservation.email}`}
                   </div>
                   <Button

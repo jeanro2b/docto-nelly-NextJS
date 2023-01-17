@@ -8,39 +8,56 @@ const CarouselPsychologie = () => {
   const texts = [
     {
       id: 0,
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, similique soluta. Doloremque vero id dolorem magnam, voluptas natus odio obcaecati quos laboriosam saepe, modi illo cupiditate accusantium tempore fugiat error. Mais 1",
+      text:
+        "Jamais la psychologie ne pourra dire sur la folie la vérité, puisque c'est la folie qui détient la vérité de la psychologie.",
       title: "Texte 1",
+      author: "Foucault",
     },
     {
       id: 1,
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, similique soluta. Doloremque vero id dolorem magnam, voluptas natus odio obcaecati quos laboriosam saepe, modi illo cupiditate accusantium tempore fugiat error.Mais 2",
+      text:
+        "La psychologie est la science qui vous apprend des choses que vous savez déjà en des termes que vous ne comprenez pas.",
       title: "Texte 2",
+      author: "Nohain",
     },
     {
       id: 2,
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, similique soluta. Doloremque vero id dolorem magnam, voluptas natus odio obcaecati quos laboriosam saepe, modi illo cupiditate accusantium tempore fugiat error.Mais 3",
+      text:
+        "Le dialogue paraît en lui-même constituer une renonciation à l'agressivité.",
       title: "Texte 3",
+      author: "Lacan",
     },
     {
       id: 3,
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, similique soluta. Doloremque vero id dolorem magnam, voluptas natus odio obcaecati quos laboriosam saepe, modi illo cupiditate accusantium tempore fugiat error.Mais 4",
+      text:
+        "L'inconscient, c’est le discours de l'autre.",
       title: "Texte 4",
+      author: "Lacan",
     },
     {
       id: 4,
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, similique soluta. Doloremque vero id dolorem magnam, voluptas natus odio obcaecati quos laboriosam saepe, modi illo cupiditate accusantium tempore fugiat error.Mais 5",
+      text:
+        "Un sujet normal est essentiellement quelqu'un qui se met dans la position de ne pas prendre au sérieux la plus grande part de son discours intérieur.",
       title: "Texte 5",
+      author: "Lacan",
     },
   ];
 
   return (
-    <Carousel infiniteLoop={true} autoPlay={true} interval={7000} transitionTime={500}>
+    <Carousel
+      infiniteLoop={true}
+      autoPlay={true}
+      interval={7000}
+      transitionTime={500}
+    >
       {texts.map((slide) => (
         <div key={slide.id}>
           <div className={"overlay"}>
-            <div className={"icone-carousel"}><FontAwesomeIcon icon={faComments} /></div>
+            <div className={"icone-carousel"}>
+              <FontAwesomeIcon icon={faComments} />
+            </div>
             <p>{slide.text}</p>
-            <h3>Lacan ce gros bg</h3>
+            <h3>{slide.author}</h3>
           </div>
         </div>
       ))}
