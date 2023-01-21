@@ -1,5 +1,6 @@
 # doctoNelly
-NextJS Front and Laravel API
+NextJS Front and Laravel API (including Laravel Breeze)
+
 
 # Features
 Appointement app for psychologists
