@@ -16,6 +16,8 @@ const Home = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Faire un try catch sur scrollIntoView pour vérifier si ça marche avec le navigateur utilisé
+
   return (
     <React.Fragment>
       <Header />

@@ -1,6 +1,6 @@
 export const regroupAndDeleteSlots = (slots) => {
   let slotsArray = Object.values(slots);
-  slotsArray = slotsArray.map((slot) => slot.split(":")[0]);
+  slotsArray = slotsArray.map((slot: any) => slot.split(":")[0]);
 
   const slotsArrayFiltered = slotsArray.filter((slot) => slot != "00");
 
@@ -19,17 +19,21 @@ export const regroupAndDeleteSlots = (slots) => {
 export const regroupReservations = (reservations) => {
   const reservationArrayDouble = reservations.map((reservation) => {
     let object = Object.values(reservation);
-    return object.map((date) => date.split(" ")[1].split(":")[0]).toString();
+    return object
+      .map((date: any) => date.split(" ")[1].split(":")[0])
+      .toString();
   });
 
   return reservationArrayDouble;
 };
 
-
-export const deleteReservationsOfSlots = (reservationArrayDouble, slotsArrayDouble) => {
-    for (let reservation of reservationArrayDouble) {
-        if (slotsArrayDouble.includes(reservation)) {
-          slotsArrayDouble.splice(slotsArrayDouble.indexOf(reservation), 1);
-        }
-      }
-}
+export const deleteReservationsOfSlots = (
+  reservationArrayDouble,
+  slotsArrayDouble
+) => {
+  for (let reservation of reservationArrayDouble) {
+    if (slotsArrayDouble.includes(reservation)) {
+      slotsArrayDouble.splice(slotsArrayDouble.indexOf(reservation), 1);
+    }
+  }
+};

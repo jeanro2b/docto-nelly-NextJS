@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/login.js", "pages/forgot-password.js", "pages/register.js", "hooks/auth.js", "lib/axios.js"  ],
+, "pages/login.js", "pages/forgot-password.js", "pages/register.js", "hooks/auth.ts", "lib/axios.ts", "components/Breeze/ApplicationLogo.js"  ],
   "exclude": [
     "node_modules"
   ]

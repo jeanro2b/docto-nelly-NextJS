@@ -121,6 +121,8 @@ const CalendarSection = () => {
       slot_id: slot_id,
     };
 
+    //axios permet de dialoguer avec le back et simplifier les appels ajax et ajouter des fonctionnalités
+
     axios
       .post("/api/reservation", request)
       .then((res) => {

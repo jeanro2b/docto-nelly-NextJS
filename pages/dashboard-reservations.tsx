@@ -60,7 +60,7 @@ const Dashboard = () => {
       <Header />
 
       <div className="py-[10rem]">
-        <div className="max-w-7xl mx-auto sm:px-3 lg:px-1">
+        <div className="w-fit mx-auto sm:px-3 lg:px-1">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-6 bg-white border-b border-gray-200">
               Réservations des patients :
@@ -68,19 +68,19 @@ const Dashboard = () => {
             {/* On mappe sur toutes les reservations pour les afficher ligne par ligne */}
             {allReservations.map((reservation) => {
               return (
-                <div className="bg-white border-b border-gray-200">
+                <div className="bg-white border-b border-gray-300">
                   <div className="p-4 bg-white border-b border-gray-200 inline-block">
-                    {`Date : ${format(
-                      new Date(
-                        reservation.day.split("-")[0],
-                        reservation.day.split("-")[1],
-                        reservation.day.split("-")[2]
-                      ),
-                      "'Le' EEEE dd MMMM yyyy",
-                      {
-                        locale: fr,
-                      }
-                    )} , de ${
+                    {`Date : ${reservation.day
+                      // new Date(
+                      //   reservation.day.split("-")[0],
+                      //   reservation.day.split("-")[1],
+                      //   reservation.day.split("-")[2]
+                      // ),
+                      // "'Le' EEEE dd MMMM yyyy",
+                      // {
+                      //   locale: fr,
+                      // }
+                    } , de ${
                       reservation.start.split(" ")[1].split(":")[0]
                     }h à ${reservation.end.split(" ")[1].split(":")[0]}h`}
                   </div>

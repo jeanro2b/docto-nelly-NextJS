@@ -60,17 +60,17 @@ const Dashboard = () => {
               return (
                 <div>
                   <div className="p-6 bg-white border-b border-gray-200">
-                    {`Date : ${format(
-                      new Date(
-                        slot.day.split("-")[0],
-                        slot.day.split("-")[1],
-                        slot.day.split("-")[2]
-                      ),
-                      "'Le' EEEE dd MMMM yyyy",
-                      {
-                        locale: fr,
-                      }
-                    )} , de ${
+                    {`Date : ${slot.day
+                      // new Date(
+                      //   slot.day.split("-")[0],
+                      //   slot.day.split("-")[1],
+                      //   slot.day.split("-")[2]
+                      // ),
+                      // "'Le' EEEE dd MMMM yyyy",
+                      // {
+                      //   locale: fr,
+                      // }
+                    } , de ${
                       slot.start.split(" ")[1].split(":")[0]
                     }h à ${slot.end.split(" ")[1].split(":")[0]}h`}
                   </div>
